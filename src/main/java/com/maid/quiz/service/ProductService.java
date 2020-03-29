@@ -1,6 +1,6 @@
 package com.maid.quiz.service;
 
-import com.maid.quiz.model.ProductDao;
+import com.maid.quiz.model.Product;
 import com.maid.quiz.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,15 +17,15 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductDao> getAll() {
+    public List<Product> getAll() {
         return productRepository.findByIsDeleted(false);
     }
 
-    public ProductDao getById(Long id) {
+    public Product getById(Long id) {
         return productRepository.findById(id).get();
     }
 
-    public ProductDao save(ProductDao product) {
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 

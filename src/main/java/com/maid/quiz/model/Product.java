@@ -4,26 +4,31 @@ import com.maid.quiz.types.Category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class ProductDao extends BaseModel {
+public class Product extends BaseModel {
 
-    public ProductDao() {
+    public Product() {
         super();
     }
 
-    public ProductDao(String name, String description, Category category) {
+    public Product(String name, String description, Category category, List<Sale> sales) {
         this.name = name;
         this.description = description;
         this.category = category;
+        this.sales = sales;
     }
 
-    public ProductDao(long id, Date creationDate, Date updatedDate, boolean isDeleted, String name, String description, Category category) {
+    public Product(long id, Date creationDate, Date updatedDate, boolean isDeleted, String name, String description, Category category, List<Sale> sales) {
         super(id, creationDate, updatedDate, isDeleted);
         this.name = name;
         this.description = description;
         this.category = category;
+        this.sales = sales;
     }
 
     @Column(nullable = false)
@@ -34,6 +39,9 @@ public class ProductDao extends BaseModel {
 
     @Column(nullable = true)
     private Category category;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
+    private List<Sale> sales;
 
     public String getName() {
         return name;
@@ -57,5 +65,13 @@ public class ProductDao extends BaseModel {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
     }
 }

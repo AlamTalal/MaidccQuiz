@@ -1,54 +1,54 @@
 package com.maid.quiz.controller;
 
-import com.maid.quiz.model.Product;
-import com.maid.quiz.service.ProductService;
+import com.maid.quiz.model.Sale;
+import com.maid.quiz.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("products")
-public class ProductController {
+@RequestMapping("sales")
+public class SaleController {
 
-    private ProductService productService;
+    SaleService saleService;
 
     @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public SaleController(SaleService saleService) {
+        this.saleService = saleService;
     }
 
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         try {
-            return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
+            return new ResponseEntity<>(saleService.getAll(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) {
         try {
-            return new ResponseEntity<>(productService.getById(id), HttpStatus.OK);
+            return new ResponseEntity<>(saleService.getById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("")
-    public ResponseEntity<?> insert (@RequestBody Product productDao) {
+    public ResponseEntity<?> insert(@RequestBody Sale sale) {
         try {
-            return new ResponseEntity<>(productService.save(productDao), HttpStatus.CREATED);
+            return new ResponseEntity<>(saleService.save(sale), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("")
-    public ResponseEntity<?> update(@RequestBody Product productDao) {
+    public ResponseEntity<?> update(@RequestBody Sale sale) {
         try {
-            return new ResponseEntity<>(productService.save(productDao), HttpStatus.CREATED);
+            return new ResponseEntity<>(saleService.save(sale), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
