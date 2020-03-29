@@ -1,6 +1,8 @@
 package com.maid.quiz.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
@@ -9,11 +11,13 @@ import java.util.List;
 
 @Entity
 @EnableJpaAuditing
+@Audited
 public class Sale extends BaseModel {
 
     private long total;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotAudited
     private Client client;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -24,6 +28,7 @@ public class Sale extends BaseModel {
             inverseJoinColumns = @JoinColumn(
                     name = "product_id", referencedColumnName = "id"))
     @JsonIgnore
+    @NotAudited
     private List<Product> products;
 
     public Sale() {

@@ -1,12 +1,15 @@
 package com.maid.quiz.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
 @Entity
+@Audited
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BaseModel {
 
     public BaseModel() {
