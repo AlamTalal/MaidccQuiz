@@ -38,20 +38,24 @@ public class ClientController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> insert(Client client) {
+    public ResponseEntity<?> insert(@RequestBody Client client) {
         try {
-            return new ResponseEntity<>(clientService.save(client), HttpStatus.OK);
+            return new ResponseEntity<>(clientService.save(client), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("")
-    public ResponseEntity<?> update(Client client) {
+    public ResponseEntity<?> update(@RequestBody Client client) {
         try {
-            return new ResponseEntity<>(clientService.save(client), HttpStatus.OK);
+//            Client fromDb = clientService.getOne(client.getId());
+//            fromDb.setName(client.getName());
+//            fromDb.setLastName(client.getLastName());
+//            fromDb.setMobile(client.getMobile());
+            return new ResponseEntity<>(clientService.save(client), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage() ,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
